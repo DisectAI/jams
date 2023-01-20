@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# React Template
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React project template using webpack for Spck for NodeJS. This project template was made with the help of `createapp.dev`.
 
-## Available Scripts
+## Building and Running
 
-In the project directory, you can run:
+Pressing the ▶ button will call the command `build` in `package.json`.  If `dist/bundle.js` file does not exist, it indicates this may be the first run and `install-dep` in `package.json` will be called. The `spck.config.json` file controls which command to call when pressing ▶ (which can be modified in **Run Settings**).
 
-### `yarn start`
+Some packages like `webpack`, `typescript`, `babel`, `react`, `ts-loader` have been installed globally to save space, unfortunately other packages do not work when installed globally and must be installed in the project folder such as `@babel/preset-env`, and `css-loader`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The task `build` creates a development build of the project and generates:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- `dist/bundle.js`
 
-### `yarn test`
+When `build` finishes, the preview window will launch.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Limitations in Android
 
-### `yarn build`
+Due to security restrictions in Android, execute permissions on write-allowed storage is likely forbidden on most stock devices. This prevents some npm scripts from working properly as `npm run` rely on the use of `sh` which requires exec permissions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The `node` program is also built as a shared library for compatibility with future versions of Android and can only be accessed from the terminal and not `sh`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+For these reasons, using `npm run ...` will not work from the terminal, but entering the command (`webpack`) directly in the terminal will work.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## NPM Install
 
-### `yarn eject`
+On external storage and SD cards, it is commonly using FAT32 or exFAT filesystems. These filesystems do not support symbolic links which is why npm dependencies that uses symlinks (mostly npm dependencies with command line usage symlinks) will fail on external storage.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Add the `--no-bin-links` option to `npm install` to prevent creation of symlinks.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm i @babel/preset-env --no-bin-links
+```
